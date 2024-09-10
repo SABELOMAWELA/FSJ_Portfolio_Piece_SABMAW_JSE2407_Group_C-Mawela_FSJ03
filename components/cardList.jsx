@@ -1,11 +1,12 @@
 "use client";
+// import "../src/app/globals.css"
 
 import React, { useState, useEffect } from "react";
 
 export default function Cards() {
-  const [products, setProducts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 20;
+  const [products, setProducts] = useState([]); // Store all fetched products
+  const [currentPage, setCurrentPage] = useState(1); // Track the current page
+  const itemsPerPage = 20; // Define the number of items to display per page
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -19,7 +20,7 @@ export default function Cards() {
         const data = await res.json();
 
         if (Array.isArray(data)) {
-          setProducts(data);
+          setProducts(data); // Store fetched products
         } else {
           throw new Error("Invalid products data");
         }
@@ -31,9 +32,9 @@ export default function Cards() {
     fetchProducts();
   }, []);
 
-  const totalPages = Math.ceil(products.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentProducts = products.slice(startIndex, startIndex + itemsPerPage);
+  const totalPages = Math.ceil(products.length / itemsPerPage); // Calculate total pages
+  const startIndex = (currentPage - 1) * itemsPerPage; // Determine the start index for the current page
+  const currentProducts = products.slice(startIndex, startIndex + itemsPerPage); // Slice products to show on the current page
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
@@ -48,6 +49,7 @@ export default function Cards() {
   return (
     <section className="py-4">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Display products in a grid layout */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
           {currentProducts.map((product) => (
             <div
@@ -55,8 +57,9 @@ export default function Cards() {
               className="relative bg-white rounded-3xl overflow-hidden shadow-lg group hover:shadow-xl transition-shadow duration-300"
             >
               <a href="#" className="cursor-pointer">
+                {/* Display the first image in the array */}
                 <img
-                  src={product.images}
+                  src={Array.isArray(product.images) ? product.images[0] : product.thumbnail}
                   alt={product.title}
                   className="object-cover w-full h-[300px] transition-transform duration-500 group-hover:scale-105"
                 />
@@ -72,6 +75,7 @@ export default function Cards() {
           ))}
         </div>
 
+        {/* Pagination controls */}
         <div className="flex justify-center mt-8">
           <button
             className="px-4 py-2 bg-indigo-600 text-white rounded-md mr-2"
