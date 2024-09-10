@@ -1,7 +1,7 @@
 import Link from "next/link"; 
 export default function Navbar() {
     return (
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col ">
         <header className="sticky z-50 top-0">
           <nav className="bg-gray-500 border-gray-200">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
