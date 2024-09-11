@@ -1,8 +1,9 @@
 import Link from "next/link"; 
+import Cards from "../../components/cardList";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div >
       {/* <header className="sticky z-50 top-0">
         <nav className="bg-gray-500 border-gray-200">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -17,8 +18,8 @@ export default function Home() {
         </nav>
       </header> */}
 
-      <main className="flex-grow flex items-center justify-center text-3xl">
-   
+      <main >
+      <Cards />
       </main>
 
       {/* <footer className="bg-zinc-50 text-center text-surface dark:bg-neutral-700 dark:text-white">

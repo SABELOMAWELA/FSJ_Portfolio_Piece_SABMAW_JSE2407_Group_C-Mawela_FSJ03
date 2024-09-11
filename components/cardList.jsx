@@ -1,31 +1,27 @@
+// components/cardList.jsx
 "use client";
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function Cards() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const itemsPerPage = 20; 
+  const itemsPerPage = 20;
 
   useEffect(() => {
     const fetchProducts = async () => {
-      setLoading(true); 
-      setError(""); 
+      setLoading(true);
+      setError("");
 
       try {
-       
         const skip = (currentPage - 1) * itemsPerPage;
-
-     
         const res = await fetch(`https://next-ecommerce-api.vercel.app/products?skip=${skip}`);
-
         if (!res.ok) {
           throw new Error(`Failed to fetch products. Status: ${res.status}`);
         }
-
         const data = await res.json();
-
         if (Array.isArray(data)) {
           setProducts(data);
         } else {
@@ -34,14 +30,13 @@ export default function Cards() {
       } catch (error) {
         setError(error.message);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
     fetchProducts();
   }, [currentPage]);
 
-  
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
@@ -67,16 +62,18 @@ export default function Cards() {
               key={product.id}
               className="relative bg-white rounded-3xl overflow-hidden shadow-lg group hover:shadow-xl transition-shadow duration-300"
             >
-              <button href="#" className="cursor-pointer">
-                <ImageSelector images={Array.isArray(product.images) ? product.images : [product.thumbnail]} />
-                <div className="absolute inset-x-0 bottom-0 bg-white bg-opacity-90 p-4 rounded-b-3xl">
-                  <div className="flex justify-between items-center mb-2">
-                    <h6 className="font-semibold text-base text-blue-500">{product.title}</h6>
-                    <h6 className="font-semibold text-base text-indigo-600">${product.price}</h6>
+              <Link href={`/product/${product.id}`}>
+                <div className="cursor-pointer">
+                  <ImageSelector images={Array.isArray(product.images) ? product.images : [product.thumbnail]} />
+                  <div className="absolute inset-x-0 bottom-0 bg-white bg-opacity-90 p-4 rounded-b-3xl">
+                    <div className="flex justify-between items-center mb-2">
+                      <h6 className="font-semibold text-base text-blue-500">{product.title}</h6>
+                      <h6 className="font-semibold text-base text-indigo-600">${product.price}</h6>
+                    </div>
+                    <p className="text-xs text-green-500">{product.category}</p>
                   </div>
-                  <p className="text-xs text-green-500">{product.category}</p>
                 </div>
-              </button>
+              </Link>
             </div>
           ))}
         </div>
@@ -89,13 +86,11 @@ export default function Cards() {
           >
             Previous
           </button>
-          <span className="px-4 py-2 text-black">
-            Page {currentPage}
-          </span>
+          <span className="px-4 py-2 text-black">Page {currentPage}</span>
           <button
             className="px-4 py-2 bg-indigo-600 text-white rounded-md ml-2"
             onClick={() => handlePageChange(currentPage + 1)}
-            disabled={products.length < itemsPerPage} 
+            disabled={products.length < itemsPerPage}
           >
             Next
           </button>
