@@ -1,17 +1,24 @@
 "use client";
-// import "../src/app/globals.css"
-
 import React, { useState, useEffect } from "react";
 
 export default function Cards() {
   const [products, setProducts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1); 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const itemsPerPage = 20; 
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true); 
+      setError(""); 
+
       try {
-        const res = await fetch("https://next-ecommerce-api.vercel.app/products");
+       
+        const skip = (currentPage - 1) * itemsPerPage;
+
+     
+        const res = await fetch(`https://next-ecommerce-api.vercel.app/products?skip=${skip}`);
 
         if (!res.ok) {
           throw new Error(`Failed to fetch products. Status: ${res.status}`);
@@ -20,82 +27,48 @@ export default function Cards() {
         const data = await res.json();
 
         if (Array.isArray(data)) {
-          setProducts(data); 
+          setProducts(data);
         } else {
           throw new Error("Invalid products data");
         }
       } catch (error) {
-        console.error("Error fetching products:", error);
+        setError(error.message);
+      } finally {
+        setLoading(false); 
       }
     };
 
     fetchProducts();
-  }, []);
-
-  const totalPages = Math.ceil(products.length / itemsPerPage); 
-  const startIndex = (currentPage - 1) * itemsPerPage; 
-  const currentProducts = products.slice(startIndex, startIndex + itemsPerPage); 
-
-  const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= totalPages) {
-      setCurrentPage(newPage);
-    }
-  };
-
-  const ImageSelector = ({ images }) => {
-    const [mainImage, setMainImage] = useState(images[0]); 
+  }, [currentPage]);
 
   
-    const handleThumbnailClick = (image) => {
-      setMainImage(image);
-    };
-
-    return (
-      <div className="relative">
-     
-        <div className="flex justify-center mb-2 space-x-2">
-          {images.map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt={`Thumbnail ${index + 1}`}
-              className={`w-12 h-12 object-cover rounded-full cursor-pointer border-2 ${
-                mainImage === image ? "border-indigo-600" : "border-gray-300"
-              }`}
-              onClick={() => handleThumbnailClick(image)}
-            />
-          ))}
-        </div>
-
-       
-        <img
-          src={mainImage}
-          alt="Product image"
-          className="object-cover w-full h-[300px] transition-transform duration-500 group-hover:scale-105"
-        />
-      </div>
-    );
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
   };
 
-  if (!currentProducts.length) {
+  if (loading) {
+    return <p className="text-center text-gray-500">Loading products...</p>;
+  }
+
+  if (error) {
+    return <p className="text-center text-red-500">Error: {error}</p>;
+  }
+
+  if (!products.length) {
     return <p className="text-center text-gray-500">No products available at the moment.</p>;
   }
 
   return (
     <section className="py-4">
       <div className="mx-auto max-w-7.5xl px-4 sm:px-6 lg:px-8">
-      
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
-          {currentProducts.map((product) => (
+          {products.map((product) => (
             <div
               key={product.id}
               className="relative bg-white rounded-3xl overflow-hidden shadow-lg group hover:shadow-xl transition-shadow duration-300"
             >
-              <a href="#" className="cursor-pointer">
-              
-                <ImageSelector
-                  images={Array.isArray(product.images) ? product.images : [product.thumbnail]}
-                />
+              <button href="#" className="cursor-pointer">
+                <ImageSelector images={Array.isArray(product.images) ? product.images : [product.thumbnail]} />
                 <div className="absolute inset-x-0 bottom-0 bg-white bg-opacity-90 p-4 rounded-b-3xl">
                   <div className="flex justify-between items-center mb-2">
                     <h6 className="font-semibold text-base text-blue-500">{product.title}</h6>
@@ -103,12 +76,11 @@ export default function Cards() {
                   </div>
                   <p className="text-xs text-green-500">{product.category}</p>
                 </div>
-              </a>
+              </button>
             </div>
           ))}
         </div>
 
-    
         <div className="flex justify-center mt-8">
           <button
             className="px-4 py-2 bg-indigo-600 text-white rounded-md mr-2"
@@ -118,12 +90,12 @@ export default function Cards() {
             Previous
           </button>
           <span className="px-4 py-2 text-black">
-            {currentPage} of {totalPages}
+            Page {currentPage}
           </span>
           <button
             className="px-4 py-2 bg-indigo-600 text-white rounded-md ml-2"
             onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
+            disabled={products.length < itemsPerPage} 
           >
             Next
           </button>
@@ -132,3 +104,34 @@ export default function Cards() {
     </section>
   );
 }
+
+const ImageSelector = ({ images }) => {
+  const [mainImage, setMainImage] = useState(images[0]);
+
+  const handleThumbnailClick = (image) => {
+    setMainImage(image);
+  };
+
+  return (
+    <div className="relative">
+      <div className="flex justify-center mb-2 space-x-2">
+        {images.map((image, index) => (
+          <img
+            key={index}
+            src={image}
+            alt={`Thumbnail ${index + 1}`}
+            className={`w-12 h-12 object-cover rounded-full cursor-pointer border-2 ${
+              mainImage === image ? "border-indigo-600" : "border-gray-300"
+            }`}
+            onClick={() => handleThumbnailClick(image)}
+          />
+        ))}
+      </div>
+      <img
+        src={mainImage}
+        alt="Product image"
+        className="object-cover w-full h-[300px] transition-transform duration-500 group-hover:scale-105"
+      />
+    </div>
+  );
+};
