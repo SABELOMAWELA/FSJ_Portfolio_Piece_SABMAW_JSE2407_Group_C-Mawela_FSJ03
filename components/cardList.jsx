@@ -62,18 +62,19 @@ export default function Cards() {
               key={product.id}
               className="relative bg-white rounded-3xl overflow-hidden shadow-lg group hover:shadow-xl transition-shadow duration-300"
             >
-              <Link href={`/product/${product.id}`}>
-                <div className="cursor-pointer">
-                  <ImageSelector images={Array.isArray(product.images) ? product.images : [product.thumbnail]} />
-                  <div className="absolute inset-x-0 bottom-0 bg-white bg-opacity-90 p-4 rounded-b-3xl">
-                    <div className="flex justify-between items-center mb-2">
-                      <h6 className="font-semibold text-base text-blue-500">{product.title}</h6>
-                      <h6 className="font-semibold text-base text-indigo-600">${product.price}</h6>
-                    </div>
-                    <p className="text-xs text-green-500">{product.category}</p>
+              <div className="cursor-pointer">
+                <ImageSelector
+                  images={Array.isArray(product.images) ? product.images : [product.thumbnail]}
+                  productId={product.id}
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-white bg-opacity-90 p-4 rounded-b-3xl">
+                  <div className="flex justify-between items-center mb-2">
+                    <h6 className="font-semibold text-base text-blue-500">{product.title}</h6>
+                    <h6 className="font-semibold text-base text-indigo-600">${product.price}</h6>
                   </div>
+                  <p className="text-xs text-green-500">{product.category}</p>
                 </div>
-              </Link>
+              </div>
             </div>
           ))}
         </div>
@@ -100,7 +101,7 @@ export default function Cards() {
   );
 }
 
-const ImageSelector = ({ images }) => {
+const ImageSelector = ({ images, productId }) => {
   const [mainImage, setMainImage] = useState(images[0]);
 
   const handleThumbnailClick = (image) => {
@@ -122,11 +123,14 @@ const ImageSelector = ({ images }) => {
           />
         ))}
       </div>
-      <img
-        src={mainImage}
-        alt="Product image"
-        className="object-cover w-full h-[300px] transition-transform duration-500 group-hover:scale-105"
-      />
+      {/* Only the main image is wrapped with a Link component */}
+      <Link href={`/product/${productId}`}>
+        <img
+          src={mainImage}
+          alt="Product image"
+          className="object-cover w-full h-[300px] transition-transform duration-500 group-hover:scale-105 cursor-pointer"
+        />
+      </Link>
     </div>
   );
 };
