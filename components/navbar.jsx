@@ -8,9 +8,10 @@ export default function Navbar() {
         <nav className="flex justify-between bg-gray-800 text-white w-full">
           <div className="px-5 xl:px-2 py-4 flex w-full items-center">
             <a className="text-3xl font-bold font-heading" href="#">
-              {/* <img class="h-9" src="logo.png" alt="logo" />  */}
-              Logo Here.
+              {/* <img class="h-9" src="/worldwide.png" alt="logo" />  */}
+              PrimePicks
             </a>
+            
         
             <div className="relative mx-auto text-gray-600">
               <input
@@ -158,7 +159,7 @@ export default function Navbar() {
         />
       </svg>
     </a>
-    <div className="z-50 absolute hidden group-hover:block bg-white border rounded-md shadow-lg mt-2 py-2">
+    <div className="z-50 absolute hidden group-hover:block bg-white border rounded-md shadow-lg mt-0 py-2">
       <a
         href="#"
         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
@@ -200,7 +201,7 @@ export default function Navbar() {
         />
       </svg>
     </a>
-    <div className="z-50 absolute hidden group-hover:block bg-white border rounded-md shadow-lg mt-2 py-2">
+    <div className="z-50 absolute hidden group-hover:block bg-white border rounded-md shadow-lg mt-0 py-2">
       <a
         href="#"
         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
@@ -284,7 +285,7 @@ export default function Navbar() {
         />
       </svg>
     </a>
-    <div className="z-50 absolute hidden group-hover:block bg-white border rounded-md shadow-lg mt-2 py-2">
+    <div className="z-50 absolute hidden group-hover:block bg-white border rounded-md shadow-lg mt-0 py-2">
       <a
         href="#"
         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
@@ -332,7 +333,7 @@ export default function Navbar() {
         />
       </svg>
     </a>
-    <div className="z-50 absolute hidden group-hover:block bg-white border rounded-md shadow-lg mt-2 py-2">
+    <div className="z-50 absolute hidden group-hover:block bg-white border rounded-md shadow-lg mt-0 py-2">
       <a
         href="#"
         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
@@ -373,7 +374,7 @@ export default function Navbar() {
         />
       </svg>
     </a>
-    <div className="z-50 absolute hidden group-hover:block bg-white border rounded-md shadow-lg mt-2 py-2">
+    <div className="z-50 absolute hidden group-hover:block bg-white border rounded-md shadow-lg mt-0 py-2">
       <a
         href="#"
         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
@@ -414,7 +415,7 @@ export default function Navbar() {
         />
       </svg>
     </a>
-    <div className="z-50 absolute hidden group-hover:block bg-white border rounded-md shadow-lg mt-2 py-2">
+    <div className="z-50 absolute hidden group-hover:block bg-white border rounded-md shadow-lg mt-0 py-2">
       <a
         href="#"
         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"

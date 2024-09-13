@@ -1,13 +1,14 @@
 "use client";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const router = useRouter();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeTab, setActiveTab] = useState("description"); 
+  const [activeTab, setActiveTab] = useState("description");
 
   useEffect(() => {
     const fetchProduct = async (id) => {
@@ -36,8 +37,26 @@ const ProductDetail = () => {
 
   return (
     <div className="font-sans p-8 tracking-wide max-lg:max-w-2xl mx-auto">
+     
+      <button
+        onClick={() => router.back()}
+        className="flex items-center text-gray-600 font-bold mb-4 hover:text-indigo-600 transition-all"
+      >
+        <svg
+          className="w-4 h-4 mr-2"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Back
+      </button>
+
       <div className="grid items-start grid-cols-1 lg:grid-cols-2 gap-10">
-    
+       
         <div className="space-y-4 text-center lg:sticky top-8">
           <div className="bg-gray-100 p-4 flex items-center sm:h-[380px] rounded-lg">
             <img
@@ -62,7 +81,6 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        
         <div className="max-w-xl">
           <h2 className="text-2xl font-extrabold text-gray-800">{product.title}</h2>
           <p className="text-sm text-gray-600 mt-2">{product.category}</p>
@@ -83,7 +101,6 @@ const ProductDetail = () => {
             ))}
           </div>
 
-         
           <div className="mt-8">
             <ul className="flex border-b">
               <li
@@ -108,7 +125,6 @@ const ProductDetail = () => {
               </li>
             </ul>
 
-           
             <div className="mt-8">
               {activeTab === "description" ? (
                 <>
@@ -145,7 +161,6 @@ const ProductDetail = () => {
             </div>
           </div>
 
-         
           <div className="flex flex-wrap gap-4 mt-8">
             <button
               type="button"
