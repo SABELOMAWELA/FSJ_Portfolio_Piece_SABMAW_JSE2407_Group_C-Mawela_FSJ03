@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PrimePicks
+#### PrimePicks is a modern e-commerce application built with Next.js and React. It provides a user-friendly interface for browsing products, viewing detailed product information, and subscribing to updates. This app is designed to offer a seamless shopping experience with features like product detail views, category filtering, and more.
 
-## Getting Started
+# Features
+- Product Detail Page: View detailed information about products including images, descriptions, reviews, and more.
+- Product List Page: Browse and filter products with a clean and responsive design.
+- Responsive Design: Optimized for both desktop and mobile devices.
+- Custom 404 Page: Informative 404 page with options to refresh or navigate back.
+# Technologies
+- Next.js: A React framework for server-side rendering and static site generation.
+- React: A JavaScript library for building user interfaces.
+- Tailwind CSS: A utility-first CSS framework for custom styling.
+- SVG Icons: For scalable vector graphics.
+# Getting Started
+## Prerequisites
+#### Make sure you have Node.js installed on your machine. You can check if Node.js is installed by running:
+- node -v
+# Installation
+1) Clone the repository
 
-First, run the development server:
+- git clone https://github.com/SABELOMAWELA/SABMAW527_JSE2407_Group_C-Mawela_FSJ01.git
+cd primepicks
+2) Install dependencies
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- npm install
+3) Run the development server
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- npm run dev
+- Your application should be running at http://localhost:3000.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+# Usage
+- Home Page: Navigate to the homepage to view the latest products.
+- Product List Page: Browse through product categories and view product cards.
+- Product Detail Page: Click on a product to view detailed information.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+# Contributing
+#### If you'd like to contribute to PrimePicks, please follow these steps:
 
-## Learn More
+- Fork the repository
+- Create a new branch
+- Make your changes
+- Submit a pull request
+- We welcome contributions from the community!
 
-To learn more about Next.js, take a look at the following resources:
+## License
+- This project is licensed under the MIT License.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
