@@ -1,6 +1,7 @@
 "use client";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import ProductDetailSkeleton from "../../../../components/productDetailSkeleton";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -31,7 +32,7 @@ const ProductDetail = () => {
     }
   }, [id]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <ProductDetailSkeleton />;
   if (error) return <p>Error: {error}</p>;
   if (!product) return <p>No product found</p>;
 

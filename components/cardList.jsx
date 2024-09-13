@@ -2,6 +2,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import CardSkeleton from "./cardskeleton";
 
 export default function Cards() {
   const [products, setProducts] = useState([]);
@@ -42,9 +43,18 @@ export default function Cards() {
   };
 
   if (loading) {
-    return <p className="text-center text-gray-500">Loading products...</p>;
+    return (
+      <section className="py-4">
+        <div className="mx-auto max-w-7.5xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
+            {Array.from({ length: itemsPerPage }).map((_, index) => (
+              <CardSkeleton key={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
   }
-
   if (error) {
     return <p className="text-center text-red-500">Error: {error}</p>;
   }
