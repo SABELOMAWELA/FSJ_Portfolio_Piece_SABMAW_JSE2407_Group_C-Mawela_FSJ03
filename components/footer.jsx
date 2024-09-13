@@ -2,7 +2,7 @@ export default function Footer() {
   return (
  
 <footer class="bg-zinc-50 font-sans dark:bg-gray-900">
-    <div class="container px-6 py-12 mx-auto">
+    <div class="container px-6 py-2 mx-auto">
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
             <div class="sm:col-span-2">
                 <h1 class="max-w-lg text-xl font-semibold tracking-tight text-gray-800 xl:text-2xl dark:text-white">Subscribe our newsletter to get an update.</h1>
@@ -41,8 +41,8 @@ export default function Footer() {
             </div>
         </div>
         
-        <hr class="my-6 border-gray-200 md:my-8 dark:border-gray-700 h-2" />
-        <p class="font-sans p-8 text-start md:text-center md:text-lg md:p-4">© 2023 You Company Inc. All rights reserved.</p>
+        <hr class="my-2 border-gray-200 md:my-2 dark:border-gray-700 h-2" />
+        <p class="font-sans p-8 text-start md:text-center md:text-lg md:p-4">© 2023 PrimePicks Inc. All rights reserved.</p>
     </div>
 </footer>
   );

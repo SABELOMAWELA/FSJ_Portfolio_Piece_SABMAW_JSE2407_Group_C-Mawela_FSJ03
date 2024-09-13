@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import CardSkeleton from "./cardskeleton";
+import Error from "./404";
 
 export default function Cards() {
   const [products, setProducts] = useState([]);
@@ -56,7 +57,7 @@ export default function Cards() {
     );
   }
   if (error) {
-    return <p className="text-center text-red-500">Error: {error}</p>;
+    return <Error/>;
   }
 
   if (!products.length) {
@@ -133,7 +134,7 @@ const ImageSelector = ({ images, productId }) => {
           />
         ))}
       </div>
-      {/* Only the main image is wrapped with a Link component */}
+     
       <Link href={`/product/${productId}`}>
         <img
           src={mainImage}

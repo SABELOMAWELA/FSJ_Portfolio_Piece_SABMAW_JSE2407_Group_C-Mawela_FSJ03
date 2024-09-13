@@ -2,7 +2,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import ProductDetailSkeleton from "../../../../components/productDetailSkeleton";
-
+import Error from "../../../../components/404";
 const ProductDetail = () => {
   const { id } = useParams();
   const router = useRouter();
@@ -33,7 +33,7 @@ const ProductDetail = () => {
   }, [id]);
 
   if (loading) return <ProductDetailSkeleton />;
-  if (error) return <p>Error: {error}</p>;
+  if (error) return <Error/>;
   if (!product) return <p>No product found</p>;
 
   return (
