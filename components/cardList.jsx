@@ -13,10 +13,10 @@ export default function Cards() {
   const [error, setError] = useState("");
   const itemsPerPage = 20;
 
- 
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("search");
   const category = searchParams.get("category");
+  const sortOrder = searchParams.get("sort"); // Get the sort parameter
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -50,17 +50,24 @@ export default function Cards() {
     fetchProducts();
   }, [currentPage, category]);
 
-
   useEffect(() => {
+    let filtered = products;
+
     if (searchQuery) {
-      const filtered = products.filter((product) =>
+      filtered = filtered.filter((product) =>
         product.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
-      setFilteredProducts(filtered);
-    } else {
-      setFilteredProducts(products); 
     }
-  }, [searchQuery, products]);
+
+    // Sort logic
+    if (sortOrder === "asc") {
+      filtered = [...filtered].sort((a, b) => a.price - b.price); // Lowest to Highest
+    } else if (sortOrder === "desc") {
+      filtered = [...filtered].sort((a, b) => b.price - a.price); // Highest to Lowest
+    }
+
+    setFilteredProducts(filtered);
+  }, [searchQuery, products, sortOrder]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);

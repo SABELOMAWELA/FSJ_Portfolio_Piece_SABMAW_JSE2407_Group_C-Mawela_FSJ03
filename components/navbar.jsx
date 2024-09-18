@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import {useRouter } from "next/navigation";
 /**
  * Navbar component renders the navigation bar for the website.
  * 
@@ -17,6 +17,7 @@ import { useParams, useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState("");
   const router = useRouter();
 
   const handleSearch = (e) => {
@@ -25,14 +26,20 @@ export default function Navbar() {
       router.push(`/?search=${searchTerm}`);
     }
   };
-
+  const handleClear = () => {
+    router.push(`/`); 
+  };
+  const handleSort = (order) => {
+    setSortOrder(order);
+    router.push(`/?sort=${order}`);
+  };
   return (
     <div className="flex flex-wrap place-items-center w-full">
       <section className="relative mx-auto w-full">
     
         <nav className="flex justify-between bg-gray-800 text-white w-full">
           <div className="px-5 xl:px-2 py-4 flex w-full items-center">
-            <a className="text-3xl font-bold font-heading" href="#">
+            <a className="text-3xl font-bold font-heading" onClick={handleClear}>
               {/* <img class="h-9" src="/worldwide.png" alt="logo" />  */}
               PrimePicks
             </a>
@@ -157,7 +164,35 @@ export default function Navbar() {
   className="hidden bg-gray-800 lg:flex lg:justify-center lg:space-x-8 lg:py-2"
   aria-label="Global"
 >
-  
+<div className="relative group">
+    <a
+      href="#"
+      className="bg-gray-900 text-white inline-flex items-center rounded-md py-2 px-10 text-sm font-medium"
+    >
+     Sort By
+      <svg
+        className="ml-1 h-4 w-4"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fillRule="evenodd"
+          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+          clipRule="evenodd"
+        />
+      </svg>
+    </a>
+    <div className="z-50 absolute hidden group-hover:block bg-white border rounded-md shadow-lg mt-0 py-2">
+    <button  onClick={() => handleSort("asc")}className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+    Lowest to Highest
+      </button>
+
+      <button onClick={() => handleSort("desc")} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+     Highest to Lowest
+      </button>
+    </div>
+  </div>
   <div className="relative group">
     <a
       href="#"
@@ -248,7 +283,7 @@ export default function Navbar() {
       </Link>
     
       <Link href="/?category=womens-shoes" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
-      Women Shoes
+      Women's Shoes
       </Link>
      
       <Link href="/?category=womens-watches" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
@@ -262,7 +297,7 @@ export default function Navbar() {
   <div className="relative group">
     <a
       href="#"
-      className="bg-gray-900 text-white inline-flex items-center rounded-md py-2 px-3 text-sm font-medium"
+      className="bg-gray-900 text-white inline-flex items-center rounded-md py-2 px-6 text-sm font-medium"
     >
       Electronics
       <svg
@@ -392,6 +427,27 @@ export default function Navbar() {
       </Link>
     </div>
   </div>
+  <button
+  onClick={handleClear}
+  className="bg-gray-900 text-white inline-flex items-center rounded-md py-2 px-3 text-sm font-medium"
+  aria-current="page"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth="1.5"
+    stroke="currentColor"
+    className="w-5 h-5 mr-2"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M3 6h18M9 6v12m6-12v12M10.5 6V4.5a1.5 1.5 0 013 0V6m6.75 0h-13.5M18 6v12a2.25 2.25 0 01-2.25 2.25H8.25A2.25 2.25 0 016 18V6h12z"
+    />
+  </svg>
+  Clear
+</button>
 </nav>
 
       </section>
