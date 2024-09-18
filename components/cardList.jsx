@@ -7,6 +7,7 @@ import Error from "./404";
 
 export default function Cards() {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -14,6 +15,7 @@ export default function Cards() {
 
  
   const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("search");
   const category = searchParams.get("category");
 
   useEffect(() => {
@@ -46,7 +48,19 @@ export default function Cards() {
     };
 
     fetchProducts();
-  }, [currentPage, category]); // Add category as a dependency
+  }, [currentPage, category]);
+
+
+  useEffect(() => {
+    if (searchQuery) {
+      const filtered = products.filter((product) =>
+        product.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    } else {
+      setFilteredProducts(products); 
+    }
+  }, [searchQuery, products]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -69,15 +83,15 @@ export default function Cards() {
     return <Error />;
   }
 
-  if (!products.length) {
-    return <p className="text-center text-gray-500">No products available at the moment.</p>;
+  if (!filteredProducts.length) {
+    return <p className="text-center text-gray-500">No products found.</p>;
   }
 
   return (
     <section className="py-4">
       <div className="mx-auto max-w-7.5xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <div
               key={product.id}
               className="relative bg-white rounded-3xl overflow-hidden shadow-lg group hover:shadow-xl transition-shadow duration-300"

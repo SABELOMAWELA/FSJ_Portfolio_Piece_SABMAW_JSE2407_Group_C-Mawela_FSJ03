@@ -1,4 +1,7 @@
+"use client";
 import Link from "next/link";
+import { useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 /**
  * Navbar component renders the navigation bar for the website.
  * 
@@ -13,6 +16,16 @@ import Link from "next/link";
  */
 
 export default function Navbar() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const router = useRouter();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm) {
+      router.push(`/?search=${searchTerm}`);
+    }
+  };
+
   return (
     <div className="flex flex-wrap place-items-center w-full">
       <section className="relative mx-auto w-full">
@@ -26,29 +39,23 @@ export default function Navbar() {
             
         
             <div className="relative mx-auto text-gray-600 hidden md:block">
-  <input
-    className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
-    type="search"
-    name="search"
-    placeholder="Search..."
-  />
-  <button type="submit" className="absolute right-0 top-0 mt-3 mr-4">
-    <svg
-      className="text-gray-600 h-4 w-4 fill-current"
-      xmlns="http://www.w3.org/2000/svg"
-      version="1.1"
-      id="Capa_1"
-      x="0px"
-      y="0px"
-      viewBox="0 0 56.966 56.966"
-      width="512px"
-      height="512px"
-    >
-      <path d="M55.146,51.887l-14.81-14.81c3.486-4.241,5.63-9.682,5.63-15.579c0-13.039-10.61-23.649-23.649-23.649 S0.668,8.459,0.668,21.498s10.61,23.649,23.649,23.649c5.897,0,11.338-2.144,15.579-5.63l14.81,14.81 c0.391,0.391,0.902,0.586,1.414,0.586s1.023-0.195,1.414-0.586C55.926,53.933,55.926,52.669,55.146,51.887z M24.317,39.497 c-9.94,0-18.001-8.061-18.001-18.001S14.377,3.495,24.317,3.495s18.001,8.061,18.001,18.001S34.257,39.497,24.317,39.497z" />
-    </svg>
-  </button>
-</div>
-           
+              <form onSubmit={handleSearch}>
+                <input
+                  className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+                  type="search"
+                  name="search"
+                  placeholder="Search products..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <button type="submit" className="absolute right-0 top-0 mt-3 mr-4">
+                  <svg className="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56.966 56.966">
+                    <path d="M55.146,51.887l-14.81-14.81c3.486-4.241,5.63-9.682,5.63-15.579c0-13.039-10.61-23.649-23.649-23.649 S0.668,8.459,0.668,21.498s10.61,23.649,23.649,23.649c5.897,0,11.338-2.144,15.579-5.63l14.81,14.81 c0.391,0.391,0.902,0.586,1.414,0.586s1.023-0.195,1.414-0.586C55.926,53.933,55.926,52.669,55.146,51.887z M24.317,39.497 c-9.94,0-18.001-8.061-18.001-18.001S14.377,3.495,24.317,3.495s18.001,8.061,18.001,18.001S34.257,39.497,24.317,39.497z" />
+                  </svg>
+                </button>
+              </form>
+            </div>
+         
             <div className="hidden xl:flex items-center space-x-5">
               <a className="hover:text-gray-200" href="#">
                 <svg
