@@ -172,24 +172,18 @@ export default function Navbar() {
       </svg>
     </a>
     <div className="z-50 absolute hidden group-hover:block bg-white border rounded-md shadow-lg mt-0 py-2">
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Beauty
-      </a>
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Fragrances
-      </a>
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Skin-care
-      </a>
+    <Link href="/?category=beauty" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+    Beauty
+      </Link>
+    
+      <Link href="/?category=fragrances" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+      Fragrances
+      </Link>
+     
+      <Link href="/?category=skin-care" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+      Skin-care
+      </Link>
+   
     </div>
   </div>
 
@@ -214,66 +208,46 @@ export default function Navbar() {
       </svg>
     </a>
     <div className="z-50 absolute hidden group-hover:block bg-white border rounded-md shadow-lg mt-0 py-2">
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Men's Shirts
-      </a>
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Men's Shoes
-      </a>
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Men's Watches
-      </a>
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Sunglasses
-      </a>
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Tops
-      </a>
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Women's Bags
-      </a>
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Women's Dresses
-      </a>
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Women's Jewellery
-      </a>
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        WomenShoes
-      </a>
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Women's Watches
-      </a>
+    <Link href="/?category=mens-shirts" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+    Men's Shirts
+      </Link>
+    
+      <Link href="/?category=mens-shoes" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+      Men's Shoes
+      </Link>
+     
+      <Link href="/?category=mens-watches" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+      Men's Watches
+      </Link>
+     
+      <Link href="/?category=sunglasses" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+      Sunglasses
+      </Link>
+     
+      <Link href="/?category=tops" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+      Tops
+      </Link>
+     
+      <Link href="/?category=womens-bags" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+      Women's Bags
+      </Link>
+    
+      <Link href="/?category=womens-dresses" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+      Women's Dresses
+      </Link>
+   
+      <Link href="/?category=womens-jewellery" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+      Women's Jewellery
+      </Link>
+    
+      <Link href="/?category=womens-shoes" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+      Women Shoes
+      </Link>
+     
+      <Link href="/?category=womens-watches" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+      Women's Watches
+      </Link>
+   
     </div>
   </div>
 
@@ -298,30 +272,22 @@ export default function Navbar() {
       </svg>
     </a>
     <div className="z-50 absolute hidden group-hover:block bg-white border rounded-md shadow-lg mt-0 py-2">
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Laptops
-      </a>
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Mobile Accessories
-      </a>
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Smartphones
-      </a>
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Tablets
-      </a>
+    <Link href="/?category=laptops" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+    Laptops
+      </Link>
+     
+      <Link href="/?category=mobile-accessories" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+      Mobile Accessories
+      </Link>
+     
+      <Link href="/?category=smartphones" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+      Smartphones
+      </Link>
+   
+      <Link href="/?category=tablets" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+      Tablets
+      </Link>
+   
     </div>
   </div>
 
@@ -346,24 +312,17 @@ export default function Navbar() {
       </svg>
     </a>
     <div className="z-50 absolute hidden group-hover:block bg-white border rounded-md shadow-lg mt-0 py-2">
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Furniture
-      </a>
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Home Decoration
-      </a>
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Kitchen Accessories
-      </a>
+    <Link href="/?category=furniture" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+    Furniture
+      </Link>
+    
+      <Link href="/?category=home-decoration" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+      Home Decoration
+      </Link>
+     
+      <Link href="/?category=kitchen-accessories" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+      Kitchen Accessories
+      </Link>
     </div>
   </div>
 
@@ -387,24 +346,17 @@ export default function Navbar() {
       </svg>
     </a>
     <div className="z-50 absolute hidden group-hover:block bg-white border rounded-md shadow-lg mt-0 py-2">
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Motorcycle
-      </a>
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Sports Accessories
-      </a>
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Vehicle
-      </a>
+    <Link href="/?category=motorcycle" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+    Motorcycle
+      </Link>
+
+      <Link href="/?category=sports-accessories" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+      Sports Accessories
+      </Link>
+
+      <Link href="/?category=vehicle" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+      Vehicle
+      </Link>
     </div>
   </div>
 
@@ -428,12 +380,9 @@ export default function Navbar() {
       </svg>
     </a>
     <div className="z-50 absolute hidden group-hover:block bg-white border rounded-md shadow-lg mt-0 py-2">
-      <a
-        href="#"
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-      >
-        Groceries
-      </a>
+    <Link href="/?category=groceries" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+     Groceries
+      </Link>
     </div>
   </div>
 </nav>

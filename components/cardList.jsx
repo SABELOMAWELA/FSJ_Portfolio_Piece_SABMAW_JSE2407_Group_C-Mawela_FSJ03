@@ -1,7 +1,7 @@
-// components/cardList.jsx
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useSearchParams } from 'next/navigation'; 
 import CardSkeleton from "./cardskeleton";
 import Error from "./404";
 
@@ -12,6 +12,10 @@ export default function Cards() {
   const [error, setError] = useState("");
   const itemsPerPage = 20;
 
+ 
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category");
+
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
@@ -19,7 +23,12 @@ export default function Cards() {
 
       try {
         const skip = (currentPage - 1) * itemsPerPage;
-        const res = await fetch(`https://next-ecommerce-api.vercel.app/products?skip=${skip}`);
+        let url = `https://next-ecommerce-api.vercel.app/products?skip=${skip}`;
+        if (category) {
+          url += `&category=${category}`;
+        }
+
+        const res = await fetch(url);
         if (!res.ok) {
           throw new Error(`Failed to fetch products. Status: ${res.status}`);
         }
@@ -37,7 +46,7 @@ export default function Cards() {
     };
 
     fetchProducts();
-  }, [currentPage]);
+  }, [currentPage, category]); // Add category as a dependency
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -57,7 +66,7 @@ export default function Cards() {
     );
   }
   if (error) {
-    return <Error/>;
+    return <Error />;
   }
 
   if (!products.length) {
@@ -134,7 +143,7 @@ const ImageSelector = ({ images, productId }) => {
           />
         ))}
       </div>
-     
+
       <Link href={`/product/${productId}`}>
         <img
           src={mainImage}
