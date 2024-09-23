@@ -16,7 +16,7 @@ export default function Cards() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("search");
   const category = searchParams.get("category");
-  const sortOrder = searchParams.get("sort"); // Get the sort parameter
+  const sortOrder = searchParams.get("sort"); 
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -59,11 +59,11 @@ export default function Cards() {
       );
     }
 
-    // Sort logic
+
     if (sortOrder === "asc") {
-      filtered = [...filtered].sort((a, b) => a.price - b.price); // Lowest to Highest
+      filtered = [...filtered].sort((a, b) => a.price - b.price); 
     } else if (sortOrder === "desc") {
-      filtered = [...filtered].sort((a, b) => b.price - a.price); // Highest to Lowest
+      filtered = [...filtered].sort((a, b) => b.price - a.price); 
     }
 
     setFilteredProducts(filtered);

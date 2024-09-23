@@ -3,6 +3,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import ProductDetailSkeleton from "../../../../components/productDetailSkeleton";
 import Error from "../../../../components/404";
+
 const ProductDetail = () => {
   const { id } = useParams();
   const router = useRouter();
@@ -10,6 +11,7 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState("description");
+  const [sortType, setSortType] = useState("date"); 
 
   useEffect(() => {
     const fetchProduct = async (id) => {
@@ -33,12 +35,22 @@ const ProductDetail = () => {
   }, [id]);
 
   if (loading) return <ProductDetailSkeleton />;
-  if (error) return <Error/>;
+  if (error) return <Error />;
   if (!product) return <p>No product found</p>;
+
+  
+  const sortReviews = (reviews, type) => {
+    return reviews.sort((a, b) => {
+      if (type === "date") {
+        return new Date(b.date) - new Date(a.date); 
+      } else if (type === "rating") {
+        return b.rating - a.rating;
+      }
+    });
+  };
 
   return (
     <div className="font-sans p-8 tracking-wide max-lg:max-w-2xl mx-auto">
-     
       <button
         onClick={() => router.back()}
         className="flex items-center text-gray-600 font-bold mb-4 hover:text-indigo-600 transition-all"
@@ -57,7 +69,7 @@ const ProductDetail = () => {
       </button>
 
       <div className="grid items-start grid-cols-1 lg:grid-cols-2 gap-10">
-       
+     
         <div className="space-y-4 text-center lg:sticky top-8">
           <div className="bg-gray-100 p-4 flex items-center sm:h-[380px] rounded-lg">
             <img
@@ -142,9 +154,30 @@ const ProductDetail = () => {
               ) : (
                 <>
                   <h3 className="text-lg font-bold text-gray-800">Customer Reviews</h3>
+
+               
+                  <div className="flex space-x-4 mb-4">
+                    <button
+                      className={`py-2 px-4 text-sm font-semibold rounded-lg ${
+                        sortType === "date" ? "bg-indigo-600 text-white" : "bg-gray-200 text-gray-800"
+                      }`}
+                      onClick={() => setSortType("date")}
+                    >
+                      Sort by Date
+                    </button>
+                    <button
+                      className={`py-2 px-4 text-sm font-semibold rounded-lg ${
+                        sortType === "rating" ? "bg-indigo-600 text-white" : "bg-gray-200 text-gray-800"
+                      }`}
+                      onClick={() => setSortType("rating")}
+                    >
+                      Sort by Rating
+                    </button>
+                  </div>
+
                   {product.reviews && product.reviews.length > 0 ? (
                     <ul className="space-y-3 mt-4">
-                      {product.reviews.map((review, index) => (
+                      {sortReviews(product.reviews, sortType).map((review, index) => (
                         <li key={index} className="text-sm text-gray-600 border-b pb-4">
                           <p className="font-bold">
                             {review.reviewerName} ({new Date(review.date).toLocaleDateString()})
@@ -171,7 +204,7 @@ const ProductDetail = () => {
             </button>
             <button
               type="button"
-              className="min-w-[200px] px-4 py-2.5 border border-indigo-600 bg-transparent hover:bg-gray-50 text-gray-800 text-sm font-semibold rounded-lg"
+              className="min-w-[200px] px-4 py-3 bg-gray-100 text-gray-700 text-sm font-semibold rounded-lg hover:bg-gray-200"
             >
               Add to cart
             </button>
