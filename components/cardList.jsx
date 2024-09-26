@@ -29,6 +29,10 @@ export default function Cards() {
         if (category) {
           url += `&category=${category}`;
         }
+        if (searchQuery) {
+          url += `&search=${searchQuery}`;
+        }
+       
 
         const res = await fetch(url);
         if (!res.ok) {
@@ -48,7 +52,7 @@ export default function Cards() {
     };
 
     fetchProducts();
-  }, [currentPage, category]);
+  }, [currentPage, category,searchQuery ,sortOrder]);
 
   useEffect(() => {
     let filtered = products;
