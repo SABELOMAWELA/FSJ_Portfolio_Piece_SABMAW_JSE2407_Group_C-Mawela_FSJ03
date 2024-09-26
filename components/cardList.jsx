@@ -32,6 +32,9 @@ export default function Cards() {
         if (searchQuery) {
           url += `&search=${searchQuery}`;
         }
+        if (sortOrder){
+          url += `&sortBy=price&order=${sortOrder} `
+        }
        
 
         const res = await fetch(url);
