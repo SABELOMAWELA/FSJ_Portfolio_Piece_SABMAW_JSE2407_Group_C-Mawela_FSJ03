@@ -1,11 +1,12 @@
 export default function Error() {
+  
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="text-center p-8 max-w-md mx-auto">
           <h1 className="text-indigo-600 font-extrabold text-6xl">Oops... 404</h1>
           <p className="text-gray-800 text-xl font-semibold mt-4">Page Not Found</p>
           <p className="text-gray-600 mt-2">
-            It seems the page you're looking for doesn't exist. Please check your internet connection and ensure the URL or search term is correct.
+            It seems the page you're looking for doesn't exist or Please check your internet connection and ensure the URL or search term is correct and reload.
           </p>
           <p className="text-gray-600 mt-2">
             If you believe this is an error, feel free to contact support. Thank you!

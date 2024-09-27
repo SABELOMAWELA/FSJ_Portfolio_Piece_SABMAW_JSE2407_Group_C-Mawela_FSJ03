@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useSearchParams } from 'next/navigation'; 
+import { useRouter, useSearchParams } from 'next/navigation'; 
 import CardSkeleton from "./cardskeleton";
 import Error from "./404";
 
@@ -13,10 +13,29 @@ export default function Cards() {
   const [error, setError] = useState("");
   const itemsPerPage = 20;
 
+  const router = useRouter();
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("search");
   const category = searchParams.get("category");
-  const sortOrder = searchParams.get("sort"); 
+  const sortOrder = searchParams.get("sort");
+  const pageParam = searchParams.get("page");
+
+  useEffect(() => {
+    if (pageParam) {
+      setCurrentPage(parseInt(pageParam, 10)); 
+    }
+  }, [pageParam]);
+
+  useEffect(() => {
+    const query = new URLSearchParams({
+      page: currentPage, 
+      search: searchQuery || "",
+      sort: sortOrder || "",
+      category: category || "",
+    });
+
+    router.push(`?${query.toString()}`);
+  }, [category, searchQuery, sortOrder, currentPage]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -32,10 +51,9 @@ export default function Cards() {
         if (searchQuery) {
           url += `&search=${searchQuery}`;
         }
-        if (sortOrder){
-          url += `&sortBy=price&order=${sortOrder} `
+        if (sortOrder) {
+          url += `&sortBy=price&order=${sortOrder}`;
         }
-       
 
         const res = await fetch(url);
         if (!res.ok) {
@@ -55,7 +73,7 @@ export default function Cards() {
     };
 
     fetchProducts();
-  }, [currentPage, category,searchQuery ,sortOrder]);
+  }, [currentPage, category, searchQuery, sortOrder]);
 
   useEffect(() => {
     let filtered = products;
@@ -66,6 +84,9 @@ export default function Cards() {
       );
     }
 
+    if (category) {
+      filtered = filtered.filter((product) => product.category === category);
+    }
 
     if (sortOrder === "asc") {
       filtered = [...filtered].sort((a, b) => a.price - b.price); 
@@ -74,7 +95,7 @@ export default function Cards() {
     }
 
     setFilteredProducts(filtered);
-  }, [searchQuery, products, sortOrder]);
+  }, [products, searchQuery, category, sortOrder]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -98,7 +119,7 @@ export default function Cards() {
   }
 
   if (!filteredProducts.length) {
-    return <p className="text-center text-gray-500">No products found.</p>;
+    return <Error />;
   }
 
   return (
@@ -156,10 +177,13 @@ const ImageSelector = ({ images, productId }) => {
     setMainImage(image);
   };
 
+  // Limit the thumbnails to 4 images
+  const displayedImages = images.slice(0, 4);
+
   return (
     <div className="relative">
       <div className="flex justify-center mb-2 space-x-2">
-        {images.map((image, index) => (
+        {displayedImages.map((image, index) => (
           <img
             key={index}
             src={image}
