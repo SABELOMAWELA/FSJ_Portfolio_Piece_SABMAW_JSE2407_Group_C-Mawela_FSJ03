@@ -1,10 +1,17 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from 'next/navigation'; 
+import { useRouter, useSearchParams } from "next/navigation";
 import CardSkeleton from "./cardskeleton";
 import Error from "./404";
 
+/**
+ * Cards component fetches and displays a paginated list of products with filters for category, search, and sort order.
+ * It handles pagination, loading state, error handling, and renders product cards with an image selector.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered Cards component.
+ */
 export default function Cards() {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -20,15 +27,19 @@ export default function Cards() {
   const sortOrder = searchParams.get("sort");
   const pageParam = searchParams.get("page");
 
+  /**
+   * Updates the current page based on the page query parameter.
+   * Updates the URL whenever the page, search, category, or sort changes.
+   */
   useEffect(() => {
     if (pageParam) {
-      setCurrentPage(parseInt(pageParam, 10)); 
+      setCurrentPage(parseInt(pageParam, 10));
     }
   }, [pageParam]);
 
   useEffect(() => {
     const query = new URLSearchParams({
-      page: currentPage, 
+      page: currentPage,
       search: searchQuery || "",
       sort: sortOrder || "",
       category: category || "",
@@ -37,6 +48,10 @@ export default function Cards() {
     router.push(`?${query.toString()}`);
   }, [category, searchQuery, sortOrder, currentPage]);
 
+  /**
+   * Fetches products from the API based on the current filters and pagination.
+   * Sets the products state and handles any errors.
+   */
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
@@ -75,6 +90,9 @@ export default function Cards() {
     fetchProducts();
   }, [currentPage, category, searchQuery, sortOrder]);
 
+  /**
+   * Filters products based on the search query, category, and sort order.
+   */
   useEffect(() => {
     let filtered = products;
 
@@ -89,17 +107,22 @@ export default function Cards() {
     }
 
     if (sortOrder === "asc") {
-      filtered = [...filtered].sort((a, b) => a.price - b.price); 
+      filtered = [...filtered].sort((a, b) => a.price - b.price);
     } else if (sortOrder === "desc") {
-      filtered = [...filtered].sort((a, b) => b.price - a.price); 
+      filtered = [...filtered].sort((a, b) => b.price - a.price);
     }
 
     setFilteredProducts(filtered);
   }, [products, searchQuery, category, sortOrder]);
 
+  /**
+   * Handles page changes by updating the current page state.
+   * @param {number} newPage - The new page number to navigate to.
+   */
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
+
 
   if (loading) {
     return (
@@ -118,6 +141,7 @@ export default function Cards() {
     return <Error />;
   }
 
+  
   if (!filteredProducts.length) {
     return <Error />;
   }
@@ -170,14 +194,28 @@ export default function Cards() {
   );
 }
 
+/**
+ * ImageSelector component displays thumbnails of product images and allows the user to select a main image.
+ * 
+ * @param {Object} props - The component props.
+ * @param {string[]} props.images - Array of image URLs for the product.
+ * @param {number} props.productId - The ID of the product.
+ * 
+ * @returns {JSX.Element} The rendered ImageSelector component.
+ */
 const ImageSelector = ({ images, productId }) => {
   const [mainImage, setMainImage] = useState(images[0]);
 
+  /**
+   * Updates the main image when a thumbnail is clicked.
+   * 
+   * @param {string} image - The image URL to set as the main image.
+   */
   const handleThumbnailClick = (image) => {
     setMainImage(image);
   };
 
-  // Limit the thumbnails to 4 images
+  
   const displayedImages = images.slice(0, 4);
 
   return (

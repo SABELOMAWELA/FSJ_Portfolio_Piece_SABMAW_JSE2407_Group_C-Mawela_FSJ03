@@ -4,15 +4,24 @@ import { useEffect, useState } from "react";
 import ProductDetailSkeleton from "../../../../components/productDetailSkeleton";
 import Error from "../../../../components/404";
 
+/**
+ * ProductDetail Component
+ * Displays detailed information of a selected product including description, reviews, and actions (buy/add to cart).
+ * @returns {JSX.Element} The rendered component.
+ */
 const ProductDetail = () => {
-  const { id } = useParams();
-  const router = useRouter();
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [activeTab, setActiveTab] = useState("description");
-  const [sortType, setSortType] = useState("date"); 
+  const { id } = useParams(); // Retrieve product ID from the URL.
+  const router = useRouter(); // Router instance for navigating.
+  const [product, setProduct] = useState(null); // State to store product details.
+  const [loading, setLoading] = useState(true); // State to manage loading state.
+  const [error, setError] = useState(null); // State to manage errors.
+  const [activeTab, setActiveTab] = useState("description"); // State to track the active tab (description/reviews).
+  const [sortType, setSortType] = useState("date"); // State to manage the sorting type for reviews.
 
+  /**
+   * Fetches the product data from the API based on the product ID.
+   * @param {string} id - The product ID.
+   */
   useEffect(() => {
     const fetchProduct = async (id) => {
       try {
@@ -34,15 +43,20 @@ const ProductDetail = () => {
     }
   }, [id]);
 
-  if (loading) return <ProductDetailSkeleton />;
-  if (error) return <Error />;
-  if (!product) return <p>No product found</p>;
+  if (loading) return <ProductDetailSkeleton />; // Show loading skeleton while data is loading.
+  if (error) return <Error />; // Show error component in case of an error.
+  if (!product) return <p>No product found</p>; // Display message if no product is found.
 
-  
+  /**
+   * Sorts the reviews array based on the selected type (either "date" or "rating").
+   * @param {Array} reviews - Array of product reviews.
+   * @param {string} type - Sorting type, either "date" or "rating".
+   * @returns {Array} Sorted reviews.
+   */
   const sortReviews = (reviews, type) => {
     return reviews.sort((a, b) => {
       if (type === "date") {
-        return new Date(b.date) - new Date(a.date); 
+        return new Date(b.date) - new Date(a.date);
       } else if (type === "rating") {
         return b.rating - a.rating;
       }
@@ -51,6 +65,7 @@ const ProductDetail = () => {
 
   return (
     <div className="font-sans p-8 tracking-wide max-lg:max-w-2xl mx-auto">
+     
       <button
         onClick={() => router.back()}
         className="flex items-center text-gray-600 font-bold mb-4 hover:text-indigo-600 transition-all"
@@ -94,10 +109,13 @@ const ProductDetail = () => {
           </div>
         </div>
 
+       
         <div className="max-w-xl">
           <h2 className="text-2xl font-extrabold text-gray-800">{product.title}</h2>
           <p className="text-sm text-gray-600 mt-2">{product.category}</p>
           <h3 className="text-gray-800 text-4xl font-bold mt-4">${product.price}</h3>
+
+         
           <div className="flex space-x-1 mt-4">
             {[...Array(5)].map((_, index) => (
               <svg
@@ -115,6 +133,7 @@ const ProductDetail = () => {
           </div>
 
           <div className="mt-8">
+          
             <ul className="flex border-b">
               <li
                 className={`${
@@ -138,6 +157,7 @@ const ProductDetail = () => {
               </li>
             </ul>
 
+           
             <div className="mt-8">
               {activeTab === "description" ? (
                 <>
@@ -155,7 +175,7 @@ const ProductDetail = () => {
                 <>
                   <h3 className="text-lg font-bold text-gray-800">Customer Reviews</h3>
 
-               
+                 
                   <div className="flex space-x-4 mb-4">
                     <button
                       className={`py-2 px-4 text-sm font-semibold rounded-lg ${
@@ -175,6 +195,7 @@ const ProductDetail = () => {
                     </button>
                   </div>
 
+                
                   {product.reviews && product.reviews.length > 0 ? (
                     <ul className="space-y-3 mt-4">
                       {sortReviews(product.reviews, sortType).map((review, index) => (
@@ -195,6 +216,7 @@ const ProductDetail = () => {
             </div>
           </div>
 
+          
           <div className="flex flex-wrap gap-4 mt-8">
             <button
               type="button"
