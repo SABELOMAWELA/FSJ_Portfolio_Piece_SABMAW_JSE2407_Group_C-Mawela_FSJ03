@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-import firebaseApp from "../firebase"; 
+import firebaseApp from "../src/app/api/firebase"; 
 import Error from "./404";
 import ProductDetailSkeleton from "./productDetailSkeleton"; 
 import { useRouter } from 'next/navigation'; 
@@ -32,6 +32,7 @@ const ProductDetailClient = ({ productId }) => {
       if (docSnap.exists()) {
         const data = docSnap.data();
         setProduct({
+          brand: data.brand,
           title: data.title,
           description: data.description,
           category: data.category,
