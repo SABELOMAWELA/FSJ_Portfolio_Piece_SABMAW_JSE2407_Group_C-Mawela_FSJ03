@@ -128,7 +128,7 @@ export default function Navbar() {
                 onClick={handleClear}
                 aria-label="PrimePicks Home"
               >
-                PrimePicks
+                PrimePick
               </a>
             </div>
 
