@@ -1,8 +1,8 @@
-// src/app/api/products.js
+
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from './firebase';
 
-// Function to fetch all products from Firestore
+
 export const fetchProducts = async () => {
   try {
     const querySnapshot = await getDocs(collection(db, 'products'));
@@ -14,7 +14,7 @@ export const fetchProducts = async () => {
   }
 };
 
-// Function to fetch all categories from Firestore
+
 export const fetchCategories = async () => {
   try {
     const querySnapshot = await getDocs(collection(db, 'categories'));
