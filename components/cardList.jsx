@@ -7,6 +7,14 @@ import CardSkeleton from "./cardskeleton";
 import Error from "./404";
 import { fetchProducts } from "../src/app/api/product"; 
 
+/**
+ * Component that displays product images and allows users to select a main image.
+ *
+ * @param {Object} props - Component props.
+ * @param {string[]} props.images - Array of image URLs for the product.
+ * @param {string} props.productId - The ID of the product for navigation.
+ * @returns {JSX.Element} The ImageSelector component.
+ */
 const ImageSelector = ({ images, productId }) => {
   const [mainImage, setMainImage] = useState(images[0]);
 
@@ -43,6 +51,11 @@ const ImageSelector = ({ images, productId }) => {
   );
 };
 
+/**
+ * Component that fetches and displays product cards with pagination.
+ *
+ * @returns {JSX.Element} The CardsContent component.
+ */
 const CardsContent = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -79,6 +92,11 @@ const CardsContent = () => {
     router.push(`?${query.toString()}`);
   }, [category, searchQuery, sortOrder, currentPage, router]);
 
+  /**
+   * Fetches product data from the API and updates state.
+   *
+   * @returns {Promise<void>}
+   */
   const fetchProductsData = async () => {
     setLoading(true);
     setError("");
@@ -121,6 +139,11 @@ const CardsContent = () => {
     setFilteredProducts(paginatedProducts);
   }, [products, searchQuery, category, sortOrder, currentPage]);
 
+  /**
+   * Handles page changes for pagination.
+   *
+   * @param {number} newPage - The new page number to navigate to.
+   */
   const handlePageChange = (newPage) => {
     if (newPage < 1) return;
     setCurrentPage(newPage);
@@ -178,7 +201,6 @@ const CardsContent = () => {
           ))}
         </div>
 
-        {/* Pagination Controls */}
         <div className="flex justify-center mt-8">
           <button
             className="px-4 py-2 bg-indigo-600 text-white rounded-md mr-2 disabled:opacity-50"
@@ -201,6 +223,11 @@ const CardsContent = () => {
   );
 };
 
+/**
+ * Main component for rendering the Cards section.
+ *
+ * @returns {JSX.Element} The Cards component.
+ */
 export default function Cards() {
   return (
     <Suspense fallback={<CardSkeleton />}>

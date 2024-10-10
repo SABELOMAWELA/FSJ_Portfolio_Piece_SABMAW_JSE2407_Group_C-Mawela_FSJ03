@@ -4,12 +4,27 @@ import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '../api/firebase';
 import { useRouter } from 'next/navigation';
 
+/**
+ * SignUp component for user registration.
+ * Allows users to create an account using email and password.
+ * Utilizes Firebase authentication.
+ *
+ * @returns {JSX.Element} The rendered SignUp component.
+ */
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
   const router = useRouter();
 
+  /**
+   * Handles user sign-up by creating a new account with the provided email and password.
+   * Stores user session in sessionStorage and redirects to the home page upon successful registration.
+   *
+   * @async
+   * @function handleSignUp
+   * @returns {Promise<void>}
+   */
   const handleSignUp = async () => {
     try {
       const res = await createUserWithEmailAndPassword(email, password);

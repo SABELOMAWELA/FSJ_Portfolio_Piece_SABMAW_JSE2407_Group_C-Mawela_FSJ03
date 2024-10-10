@@ -7,6 +7,14 @@ import Error from "./404";
 import ProductDetailSkeleton from "./productDetailSkeleton"; 
 import { useRouter } from 'next/navigation';
 
+/**
+ * ProductDetailClient component to fetch and display product details,
+ * reviews, and handle review actions (add, edit, delete).
+ * 
+ * @param {Object} props - Component props.
+ * @param {string} props.productId - The ID of the product to display.
+ * @returns {JSX.Element} The rendered component.
+ */
 const ProductDetailClient = ({ productId }) => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -24,6 +32,11 @@ const ProductDetailClient = ({ productId }) => {
     }
   }, [productId]);
 
+  /**
+   * Fetches product data by ID from Firestore.
+   * 
+   * @param {string} productId - The ID of the product to fetch.
+   */
   const fetchProductById = async (productId) => {
     const db = getFirestore(firebaseApp);
     const formattedId = productId.toString().padStart(3, '0');
@@ -57,7 +70,9 @@ const ProductDetailClient = ({ productId }) => {
     }
   };
 
-  // Function to add a new review to Firestore
+  /**
+   * Handles adding a new review to Firestore.
+   */
   const handleAddReview = async () => {
     const db = getFirestore(firebaseApp);
     const formattedId = productId.toString().padStart(3, '0');
@@ -84,7 +99,11 @@ const ProductDetailClient = ({ productId }) => {
     }
   };
 
-  // Function to delete a review
+  /**
+   * Handles deleting a review from Firestore.
+   * 
+   * @param {Object} reviewToDelete - The review object to delete.
+   */
   const handleDeleteReview = async (reviewToDelete) => {
     const db = getFirestore(firebaseApp);
     const formattedId = productId.toString().padStart(3, '0');
@@ -103,12 +122,19 @@ const ProductDetailClient = ({ productId }) => {
     }
   };
 
-  // Function to edit a review
+  /**
+   * Sets the review input to the selected review for editing.
+   * 
+   * @param {Object} review - The review object to edit.
+   */
   const handleEditReview = (review) => {
     setReviewInput(review);
     setEditingReview(review);
   };
 
+  /**
+   * Saves the edited review to Firestore.
+   */
   const saveEditedReview = async () => {
     const db = getFirestore(firebaseApp);
     const formattedId = productId.toString().padStart(3, '0');
@@ -140,6 +166,13 @@ const ProductDetailClient = ({ productId }) => {
     }
   };
 
+  /**
+   * Sorts reviews based on the selected sort type.
+   * 
+   * @param {Array} reviews - The array of reviews to sort.
+   * @param {string} sortType - The type of sorting (date or rating).
+   * @returns {Array} The sorted reviews.
+   */
   const sortReviews = (reviews, sortType) => {
     if (sortType === "rating") {
       return reviews.slice().sort((a, b) => b.rating - a.rating);

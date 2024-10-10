@@ -13,12 +13,33 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-
+/**
+ * Initializes the Firebase app with the provided configuration.
+ * 
+ * This function creates and configures a Firebase app instance using the
+ * settings specified in the firebaseConfig object.
+ * 
+ * @returns {FirebaseApp} The initialized Firebase app instance.
+ */
 const app = initializeApp(firebaseConfig);
-
 
 export default app;
 
-
+/**
+ * Gets the Firebase Authentication instance.
+ * 
+ * This instance allows for managing user authentication with Firebase.
+ * 
+ * @returns {Auth} The Firebase Authentication instance.
+ */
 export const auth = getAuth(app);
+
+/**
+ * Gets the Firestore database instance.
+ * 
+ * This instance provides methods for interacting with the Firestore database,
+ * allowing for data storage and retrieval.
+ * 
+ * @returns {Firestore} The Firestore database instance.
+ */
 export const db = getFirestore(app);

@@ -4,31 +4,40 @@ import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '../api/firebase';
 import { useRouter } from 'next/navigation';
 
+/**
+ * SignIn component allows users to log in to their accounts.
+ * It utilizes Firebase authentication to handle sign-in requests.
+ * 
+ * @returns {JSX.Element} The SignIn form.
+ */
 const SignIn = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
-  const router = useRouter();
+  const [email, setEmail] = useState(''); // State to store email input
+  const [password, setPassword] = useState(''); // State to store password input
+  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth); // Firebase hook for signing in
+  const router = useRouter(); // Hook for navigating between pages
 
+  /**
+   * Handles the sign-in process when the user submits the form.
+   * It calls the Firebase sign-in function and manages session storage.
+   */
   const handleSignIn = async () => {
     try {
       const res = await signInWithEmailAndPassword(email, password);
       if (res) {
         console.log({ res });
-        sessionStorage.setItem('user', true);
-        setEmail('');
-        setPassword('');
-        router.push('/');
+        sessionStorage.setItem('user', true); // Store user session in session storage
+        setEmail(''); // Reset email input
+        setPassword(''); // Reset password input
+        router.push('/'); // Redirect to the home page after successful sign-in
       }
     } catch (e) {
-      console.error(e);
+      console.error(e); // Log error if sign-in fails
     }
   };
 
   return (
     <div className="font-sans bg-white min-h-screen flex items-center justify-center p-4">
       <div className="grid md:grid-cols-3 items-center shadow-lg rounded-xl overflow-hidden max-w-4xl w-full">
-       
         <form className="md:col-span-2 w-full py-6 px-6 sm:px-16 bg-white">
           <div className="mb-6">
             <h3 className="text-gray-800 text-2xl font-bold">Sign In</h3>
@@ -38,7 +47,6 @@ const SignIn = () => {
           </div>
 
           <div className="space-y-6">
-           
             <div className="relative">
               <label className="text-gray-800 text-sm mb-2 block">Email</label>
               <input
@@ -73,7 +81,6 @@ const SignIn = () => {
               </svg>
             </div>
 
-           
             <div className="relative">
               <label className="text-gray-800 text-sm mb-2 block">Password</label>
               <input
@@ -95,7 +102,6 @@ const SignIn = () => {
               </svg>
             </div>
 
-           
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
@@ -116,19 +122,17 @@ const SignIn = () => {
             </div>
           </div>
 
-        
           <div className="mt-12">
             <button
               type="button"
               onClick={handleSignIn}
-              className="w-full py-3 px-4 tracking-wider text-sm rounded-md  text-white bg-gray-700 hover:bg-gray-800 focus:outline-none"
+              className="w-full py-3 px-4 tracking-wider text-sm rounded-md text-white bg-gray-700 hover:bg-gray-800 focus:outline-none"
               disabled={loading}
             >
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
           </div>
 
-          
           <p className="text-sm text-gray-800 mt-8 text-center">
             Don't have an account?{' '}
             <a href="/sign-up" className="text-blue-600 font-semibold hover:underline">
@@ -136,7 +140,6 @@ const SignIn = () => {
             </a>
           </p>
 
-        
           {error && (
             <p className="text-red-500 text-sm mt-4 text-center">
               {error.message}
@@ -144,7 +147,6 @@ const SignIn = () => {
           )}
         </form>
 
-        
         <div className="flex flex-col justify-center space-y-8 min-h-full bg-gradient-to-r from-gray-900 to-gray-700 lg:px-8 px-4 py-4">
           <div>
             <h4 className="text-white text-lg font-semibold">Secure Authentication</h4>
