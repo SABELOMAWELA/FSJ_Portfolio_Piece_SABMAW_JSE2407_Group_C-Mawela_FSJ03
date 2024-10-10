@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import CardSkeleton from "./cardskeleton";
@@ -43,7 +43,7 @@ const ImageSelector = ({ images, productId }) => {
   );
 };
 
-export default function Cards() {
+const CardsContent = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -58,19 +58,16 @@ export default function Cards() {
   const sortOrder = searchParams.get("sort");
   const pageParam = searchParams.get("page");
 
-  // When page changes based on URL params
   useEffect(() => {
     if (pageParam) {
       setCurrentPage(parseInt(pageParam, 10));
     }
   }, [pageParam]);
 
- 
   useEffect(() => {
     setCurrentPage(1);
   }, [category, searchQuery, sortOrder]);
 
- 
   useEffect(() => {
     const query = new URLSearchParams({
       page: currentPage,
@@ -82,7 +79,6 @@ export default function Cards() {
     router.push(`?${query.toString()}`);
   }, [category, searchQuery, sortOrder, currentPage, router]);
 
-  // Fetch products based on current filters
   const fetchProductsData = async () => {
     setLoading(true);
     setError("");
@@ -120,7 +116,6 @@ export default function Cards() {
       filtered = [...filtered].sort((a, b) => b.price - a.price);
     }
 
-    
     const startIndex = (currentPage - 1) * itemsPerPage;
     const paginatedProducts = filtered.slice(startIndex, startIndex + itemsPerPage);
     setFilteredProducts(paginatedProducts);
@@ -203,5 +198,13 @@ export default function Cards() {
         </div>
       </div>
     </section>
+  );
+};
+
+export default function Cards() {
+  return (
+    <Suspense fallback={<CardSkeleton />}>
+      <CardsContent />
+    </Suspense>
   );
 }
